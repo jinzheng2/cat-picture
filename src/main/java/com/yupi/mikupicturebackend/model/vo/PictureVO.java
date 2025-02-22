@@ -70,8 +70,18 @@ public class PictureVO implements Serializable {
     /**  
      * 图片格式  
      */  
-    private String picFormat;  
-  
+    private String picFormat;
+
+    /**
+     * 图片主色调
+     */
+    private String picColor;
+
+    /**
+     * 空间 id
+     */
+    private Long spaceId;
+
     /**  
      * 用户 id  
      */  

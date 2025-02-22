@@ -3,22 +3,20 @@ package com.yupi.mikupicturebackend.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.yupi.mikupicturebackend.model.dto.picture.PictureQueryRequest;
-import com.yupi.mikupicturebackend.model.dto.picture.PictureReviewRequest;
-import com.yupi.mikupicturebackend.model.dto.picture.PictureUploadByBatchRequest;
-import com.yupi.mikupicturebackend.model.dto.picture.PictureUploadRequest;
+import com.yupi.mikupicturebackend.model.dto.picture.*;
 import com.yupi.mikupicturebackend.model.entity.Picture;
 import com.yupi.mikupicturebackend.model.entity.User;
 import com.yupi.mikupicturebackend.model.vo.PictureVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
-* @author mu
-* @description 针对表【picture(图片)】的数据库操作Service
-* @createDate 2025-01-20 23:47:41
-*/
+ * @author mu
+ * @description 针对表【picture(图片)】的数据库操作Service
+ * @createDate 2025-01-20 23:47:41
+ */
 public interface PictureService extends IService<Picture> {
 
     /**
@@ -31,7 +29,7 @@ public interface PictureService extends IService<Picture> {
     /**
      * 上传图片
      *
-     * @param inputSource 文件输入源
+     * @param inputSource          文件输入源
      * @param pictureUploadRequest
      * @param loginUser
      * @return
@@ -98,5 +96,46 @@ public interface PictureService extends IService<Picture> {
      *
      * @param oldPicture
      */
-    void  clearPictureFile(Picture oldPicture);
+    void clearPictureFile(Picture oldPicture);
+
+    /**
+     * 删除图片
+     *
+     * @param pictureId
+     * @param loginUser
+     */
+    void deletePicture(long pictureId, User loginUser);
+
+    /**
+     * 编辑图片
+     *
+     * @param pictureEditRequest
+     * @param loginUser
+     */
+    void editPicture(PictureEditRequest pictureEditRequest, User loginUser);
+
+    /**
+     * 校验空间图片的权限
+     *
+     * @param picture
+     * @param loginUser
+     */
+    void checkPictureAuth(User loginUser, Picture picture);
+
+    /**
+     * 根据颜色搜索图片
+     *
+     * @param spaceId
+     * @param picColor
+     * @param loginUser
+     * @return
+     */
+    List<PictureVO> searchPictureByColor(Long spaceId, String picColor, User loginUser);
+
+    /**
+     * 批量编辑图片
+     * @param pictureEditByBatchRequest
+     * @param loginUser
+     */
+    void editPictureByBatch(PictureEditByBatchRequest pictureEditByBatchRequest, User loginUser);
 }
